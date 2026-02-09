@@ -1,6 +1,50 @@
 // Google Apps Script code for SEHS Predictions Backend
 // Deploy this as a Web App from Google Sheets > Extensions > Apps Script
 
+// AUTO-SETUP: Run this function ONCE after creating your script to initialize the sheet
+function initializeSheet() {
+    const sheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName('Sheet1');
+
+    // Check if headers already exist
+    if (sheet.getRange(1, 1).getValue() !== '') {
+        Logger.log('Sheet already initialized');
+        return;
+    }
+
+    // Set up headers
+    const headers = [
+        'Timestamp',
+        'Email',
+        'Username',
+        'Unit Code',
+        'Level',
+        'Paper',
+        'Predicted Points',
+        'Question',
+        'Mark Scheme',
+        'Status'
+    ];
+
+    sheet.getRange(1, 1, 1, headers.length).setValues([headers]);
+
+    // Format headers
+    sheet.getRange(1, 1, 1, headers.length)
+        .setBackground('#004587')
+        .setFontColor('#ffffff')
+        .setFontWeight('bold')
+        .setFontSize(11);
+
+    // Freeze header row
+    sheet.setFrozenRows(1);
+
+    // Auto-resize columns
+    for (let i = 1; i <= headers.length; i++) {
+        sheet.autoResizeColumn(i);
+    }
+
+    Logger.log('Sheet initialized successfully!');
+}
+
 // Main function to handle GET and POST requests
 function doGet(e) {
     const action = e.parameter.action;
