@@ -185,6 +185,8 @@
                             </label>
                             <input
                                 type="number"
+                                min="0"
+                                max="100"
                                 className={`w-full bg-white border border-[#e0e0e0] rounded px-2 py-1.5 text-[#333] text-sm ${borderFocus} focus:outline-none transition-all duration-300 font-mono`}
                                 placeholder="0"
                                 value={getVal('points')}
@@ -324,6 +326,11 @@
                     const result = await response.json();
 
                     if (result.success && result.predictions.length > 0) {
+                        // Restore username if available
+                        if (result.predictions[0].username) {
+                            setUserInfo(prev => ({ ...prev, username: result.predictions[0].username }));
+                        }
+
                         // Convert array of predictions back to formData structure
                         const loadedData = {};
                         result.predictions.forEach(pred => {

@@ -136,6 +136,7 @@ function getMyPredictions(email) {
         .filter(row => row[1] === email) // Filter by email (column index 1)
         .map(row => ({
             timestamp: row[0],
+            username: row[2], // Include username to restore it on frontend
             unitCode: row[3],
             level: row[4],
             paper: row[5],
@@ -159,7 +160,7 @@ function getPublicPredictions() {
     const rows = data.slice(1);
 
     const publicPredictions = rows
-        .filter(row => row[9] === 'submitted') // Only show submitted predictions
+        .filter(row => row[9] && row[6]) // Show all predictions with status and points
         .map(row => ({
             timestamp: row[0],
             username: row[2],     // Username only, NO email
