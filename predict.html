@@ -638,60 +638,60 @@
                                 <div className="flex flex-col">
                                     <div className="flex justify-between items-center mb-1">
                                         <span className="text-xs font-semibold" style={{ color: '#004587' }}>SL P1A</span>
-                                        <span className="text-xs font-mono font-bold" style={{ color: '#004587' }}>{progress.slP1a.completed}/{progress.slP1a.total}</span>
+                                        <span className="text-xs font-mono font-bold" style={{ color: '#004587' }}>{progress.slP1a.current}/{progress.slP1a.max}</span>
                                     </div>
                                     <div className="w-full bg-gray-200 rounded-full h-2 overflow-hidden">
                                         <div className="h-full rounded-full transition-all duration-300" style={{
-                                            width: `${(progress.slP1a.completed / progress.slP1a.total) * 100}%`,
+                                            width: `${progress.slP1a.max > 0 ? (progress.slP1a.current / progress.slP1a.max) * 100 : 0}%`,
                                             background: 'linear-gradient(90deg, #004587 0%, #0066cc 100%)'
                                         }}></div>
                                     </div>
-                                    <span className="text-[10px] text-gray-500 mt-1">{Math.round((progress.slP1a.completed / progress.slP1a.total) * 100)}% complete</span>
+                                    <span className="text-[10px] text-gray-500 mt-1">{progress.slP1a.max > 0 ? Math.round((progress.slP1a.current / progress.slP1a.max) * 100) : 0}% complete</span>
                                 </div>
 
                                 {/* SL P2 */}
                                 <div className="flex flex-col">
                                     <div className="flex justify-between items-center mb-1">
                                         <span className="text-xs font-semibold" style={{ color: '#004587' }}>SL P2</span>
-                                        <span className="text-xs font-mono font-bold" style={{ color: '#004587' }}>{progress.slP2.completed}/{progress.slP2.total}</span>
+                                        <span className="text-xs font-mono font-bold" style={{ color: '#004587' }}>{progress.slP2.current}/{progress.slP2.max}</span>
                                     </div>
                                     <div className="w-full bg-gray-200 rounded-full h-2 overflow-hidden">
                                         <div className="h-full rounded-full transition-all duration-300" style={{
-                                            width: `${(progress.slP2.completed / progress.slP2.total) * 100}%`,
+                                            width: `${progress.slP2.max > 0 ? (progress.slP2.current / progress.slP2.max) * 100 : 0}%`,
                                             background: 'linear-gradient(90deg, #004587 0%, #0066cc 100%)'
                                         }}></div>
                                     </div>
-                                    <span className="text-[10px] text-gray-500 mt-1">{Math.round((progress.slP2.completed / progress.slP2.total) * 100)}% complete</span>
+                                    <span className="text-[10px] text-gray-500 mt-1">{progress.slP2.max > 0 ? Math.round((progress.slP2.current / progress.slP2.max) * 100) : 0}% complete</span>
                                 </div>
 
                                 {/* HL P1A */}
                                 <div className="flex flex-col">
                                     <div className="flex justify-between items-center mb-1">
-                                        <span className="text-xs font-semibold" style={{ color: '#e0a800' }}>HL P1A</span>
-                                        <span className="text-xs font-mono font-bold" style={{ color: '#e0a800' }}>{progress.hlP1a.completed}/{progress.hlP1a.total}</span>
+                                        <span className="text-xs font-semibold" style={{ color: '#fbba07' }}>HL P1A</span>
+                                        <span className="text-xs font-mono font-bold" style={{ color: '#fbba07' }}>{progress.hlP1a.current}/{progress.hlP1a.max}</span>
                                     </div>
                                     <div className="w-full bg-gray-200 rounded-full h-2 overflow-hidden">
                                         <div className="h-full rounded-full transition-all duration-300" style={{
-                                            width: `${(progress.hlP1a.completed / progress.hlP1a.total) * 100}%`,
-                                            background: 'linear-gradient(90deg, #fbba07 0%, #e0a800 100%)'
+                                            width: `${progress.hlP1a.max > 0 ? (progress.hlP1a.current / progress.hlP1a.max) * 100 : 0}%`,
+                                            background: 'linear-gradient(90deg, #fbba07 0%, #ffcc33 100%)'
                                         }}></div>
                                     </div>
-                                    <span className="text-[10px] text-gray-500 mt-1">{Math.round((progress.hlP1a.completed / progress.hlP1a.total) * 100)}% complete</span>
+                                    <span className="text-[10px] text-gray-500 mt-1">{progress.hlP1a.max > 0 ? Math.round((progress.hlP1a.current / progress.hlP1a.max) * 100) : 0}% complete</span>
                                 </div>
 
                                 {/* HL P2 */}
                                 <div className="flex flex-col">
                                     <div className="flex justify-between items-center mb-1">
-                                        <span className="text-xs font-semibold" style={{ color: '#e0a800' }}>HL P2</span>
-                                        <span className="text-xs font-mono font-bold" style={{ color: '#e0a800' }}>{progress.hlP2.completed}/{progress.hlP2.total}</span>
+                                        <span className="text-xs font-semibold" style={{ color: '#fbba07' }}>HL P2</span>
+                                        <span className="text-xs font-mono font-bold" style={{ color: '#fbba07' }}>{progress.hlP2.current}/{progress.hlP2.max}</span>
                                     </div>
                                     <div className="w-full bg-gray-200 rounded-full h-2 overflow-hidden">
                                         <div className="h-full rounded-full transition-all duration-300" style={{
-                                            width: `${(progress.hlP2.completed / progress.hlP2.total) * 100}%`,
-                                            background: 'linear-gradient(90deg, #fbba07 0%, #e0a800 100%)'
+                                            width: `${progress.hlP2.max > 0 ? (progress.hlP2.current / progress.hlP2.max) * 100 : 0}%`,
+                                            background: 'linear-gradient(90deg, #fbba07 0%, #ffcc33 100%)'
                                         }}></div>
                                     </div>
-                                    <span className="text-[10px] text-gray-500 mt-1">{Math.round((progress.hlP2.completed / progress.hlP2.total) * 100)}% complete</span>
+                                    <span className="text-[10px] text-gray-500 mt-1">{progress.hlP2.max > 0 ? Math.round((progress.hlP2.current / progress.hlP2.max) * 100) : 0}% complete</span>
                                 </div>
                             </div>
                         </div>
