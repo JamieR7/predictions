@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Predictions Gallery | IB SEHS Predictor</title>
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <style>
+        body {
+            font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+        }
+
+        .prediction-card {
+            transition: all 0.3s ease;
+        }
+
+        .prediction-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+        }
+    </style>
+</head>
+
+<body style="background: linear-gradient(135deg, #004587 0%, #002a52 100%); min-height: 100vh;">
+
+    <!-- Navbar -->
+    <nav class="bg-white shadow-md sticky top-0 z-50" style="border-bottom: 3px solid #fbba07;">
+        <div class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
+            <div class="flex items-center gap-3">
+                <a href="landing.html" class="flex items-center gap-2 hover:opacity-80 transition">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                        stroke="#004587" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="19" y1="12" x2="5" y2="12"></line>
+                        <polyline points="12 19 5 12 12 5"></polyline>
+                    </svg>
+                    <span class="font-semibold" style="color: #004587;">Back to Home</span>
+                </a>
+            </div>
+            <h1 class="text-xl font-bold" style="color: #004587;">
+                Student Predictions <span style="color: #fbba07;">Gallery</span>
+            </h1>
+            <div></div>
+        </div>
+    </nav>
+
+    <!-- Content -->
+    <div class="max-w-7xl mx-auto px-4 py-12">
+
+        <!-- Filters Section -->
+        <div class="bg-white rounded-xl p-6 mb-8 shadow-lg">
+            <h2 class="text-lg font-bold mb-4" style="color: #004587;">Filter Predictions</h2>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <!-- Topic Filter -->
+                <div>
+                    <label class="block text-sm font-semibold mb-2" style="color: #666;">Topic</label>
+                    <select id="topicFilter"
+                        class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-[#fbba07]">
+                        <option value="">All Topics</option>
+                        <option value="A">A. Exercise Physiology & Nutrition</option>
+                        <option value="B">B. Biomechanics</option>
+                        <option value="C">C. Sports Psychology</option>
+                    </select>
+                </div>
+
+                <!-- Level Filter -->
+                <div>
+                    <label class="block text-sm font-semibold mb-2" style="color: #666;">Level</label>
+                    <select id="levelFilter"
+                        class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-[#fbba07]">
+                        <option value="">All Levels</option>
+                        <option value="SL">Standard Level (SL)</option>
+                        <option value="HL">Higher Level (HL)</option>
+                    </select>
+                </div>
+
+                <!-- Search -->
+                <div>
+                    <label class="block text-sm font-semibold mb-2" style="color: #666;">Search Username</label>
+                    <input type="text" id="searchInput" placeholder="Type username..."
+                        class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-[#fbba07]">
+                </div>
+            </div>
+        </div>
+
+        <!-- Coming Soon Notice -->
+        <div class="text-center py-20">
+            <div class="inline-block p-6 rounded-full mb-6" style="background: rgba(251, 186, 7, 0.1);">
+                <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 24 24" fill="none"
+                    stroke="#fbba07" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <polyline points="12 6 12 12 16 14"></polyline>
+                </svg>
+            </div>
+            <h2 class="text-3xl font-bold text-white mb-4">Gallery Coming Soon!</h2>
+            <p class="text-lg mb-8" style="color: rgba(255, 255, 255, 0.8);">
+                This section will display student predictions once the backend is set up.
+            </p>
+            <a href="predict.html" class="inline-block px-8 py-4 rounded-lg text-white font-semibold text-lg"
+                style="background: linear-gradient(135deg, #fbba07 0%, #e0a800 100%);">
+                Submit Your Predictions →
+            </a>
+        </div>
+
+        <!-- Predictions Grid (Will be populated dynamically) -->
+        <div id="predictionsGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" style="display: none;">
+            <!-- Prediction cards will be inserted here via JavaScript -->
+        </div>
+
+    </div>
+
+    <script>
+        // Placeholder for future functionality
+        console.log('Gallery page loaded - Backend integration pending');
+
+        // Filter event listeners (for future use)
+        document.getElementById('topicFilter').addEventListener('change', function () {
+            console.log('Topic filter:', this.value);
+        });
+
+        document.getElementById('levelFilter').addEventListener('change', function () {
+            console.log('Level filter:', this.value);
+        });
+
+        document.getElementById('searchInput').addEventListener('input', function () {
+            console.log('Search:', this.value);
+        });
+    </script>
+
+</body>
+
+</html>
