@@ -78,11 +78,9 @@ function doPost(e) {
 
 // Helper function to create CORS-enabled responses
 function createCORSResponse(data) {
-    return ContentService.createTextOutput(JSON.stringify(data))
-        .setMimeType(ContentService.MimeType.JSON)
-        .setHeader('Access-Control-Allow-Origin', '*')
-        .setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS')
-        .setHeader('Access-Control-Allow-Headers', 'Content-Type');
+    const output = ContentService.createTextOutput(JSON.stringify(data));
+    output.setMimeType(ContentService.MimeType.JSON);
+    return output;
 }
 
 // Submit a new prediction
