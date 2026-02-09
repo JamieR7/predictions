@@ -379,13 +379,10 @@
                         });
                     });
 
-                    // Save each prediction
+                    // Save each prediction using GET to avoid CORS preflight
                     for (const prediction of predictions) {
-                        await fetch(CONFIG.API_URL, {
-                            method: 'POST',
-                            headers: { 'Content-Type': 'application/json' },
-                            body: JSON.stringify(prediction)
-                        });
+                        const params = new URLSearchParams(prediction);
+                        await fetch(`${CONFIG.API_URL}?${params.toString()}`);
                     }
 
                     if (!isAutoSave) {

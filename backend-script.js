@@ -53,6 +53,9 @@ function doGet(e) {
         return getPublicPredictions();
     } else if (action === 'get-my-predictions') {
         return getMyPredictions(e.parameter.email);
+    } else if (action === 'submit' || action === 'update') {
+        // Handle submissions via GET to avoid CORS
+        return submitPrediction(e.parameter);
     }
 
     return createCORSResponse({ error: 'Invalid action' });
