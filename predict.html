@@ -451,7 +451,31 @@
                 return { slTotal, hlTotal };
             };
 
+            const calculateProgress = () => {
+                const totalUnits = SEHS_DATA.length;
+                let slP1aCompleted = 0;
+                let slP2Completed = 0;
+                let hlP1aCompleted = 0;
+                let hlP2Completed = 0;
+
+                SEHS_DATA.forEach(unit => {
+                    const unitData = formData[unit.code];
+                    if (unitData?.sl?.p1a?.question || unitData?.sl?.p1a?.points) slP1aCompleted++;
+                    if (unitData?.sl?.p2?.question || unitData?.sl?.p2?.points) slP2Completed++;
+                    if (unitData?.hl?.p1a?.question || unitData?.hl?.p1a?.points) hlP1aCompleted++;
+                    if (unitData?.hl?.p2?.question || unitData?.hl?.p2?.points) hlP2Completed++;
+                });
+
+                return {
+                    slP1a: { completed: slP1aCompleted, total: totalUnits },
+                    slP2: { completed: slP2Completed, total: totalUnits },
+                    hlP1a: { completed: hlP1aCompleted, total: totalUnits },
+                    hlP2: { completed: hlP2Completed, total: totalUnits }
+                };
+            };
+
             const stats = calculateTotalPredicted();
+            const progress = calculateProgress();
 
             return (
                 <div className="relative min-h-screen font-sans">
@@ -571,6 +595,72 @@
                                     <span className="text-xs font-mono block mb-1 uppercase tracking-wider" style={{ color: '#666' }}>Total HL Predicted</span>
                                     <span className="text-3xl font-bold font-mono" style={{ color: '#fbba07' }}>{stats.hlTotal}</span>
                                     <span className="text-xs ml-2" style={{ color: '#666' }}>(Paper 1A + Paper 2)</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        {/* Progress Tracker */}
+                        <div className="glass-panel rounded-xl p-6 mb-6">
+                            <h3 className="text-sm font-bold mb-4 uppercase tracking-wider" style={{ color: '#004587' }}>📊 Your Progress by Paper</h3>
+                            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                                {/* SL P1A */}
+                                <div className="flex flex-col">
+                                    <div className="flex justify-between items-center mb-1">
+                                        <span className="text-xs font-semibold" style={{ color: '#004587' }}>SL P1A</span>
+                                        <span className="text-xs font-mono font-bold" style={{ color: '#004587' }}>{progress.slP1a.completed}/{progress.slP1a.total}</span>
+                                    </div>
+                                    <div className="w-full bg-gray-200 rounded-full h-2 overflow-hidden">
+                                        <div className="h-full rounded-full transition-all duration-300" style={{
+                                            width: `${(progress.slP1a.completed / progress.slP1a.total) * 100}%`,
+                                            background: 'linear-gradient(90deg, #004587 0%, #0066cc 100%)'
+                                        }}></div>
+                                    </div>
+                                    <span className="text-[10px] text-gray-500 mt-1">{Math.round((progress.slP1a.completed / progress.slP1a.total) * 100)}% complete</span>
+                                </div>
+
+                                {/* SL P2 */}
+                                <div className="flex flex-col">
+                                    <div className="flex justify-between items-center mb-1">
+                                        <span className="text-xs font-semibold" style={{ color: '#004587' }}>SL P2</span>
+                                        <span className="text-xs font-mono font-bold" style={{ color: '#004587' }}>{progress.slP2.completed}/{progress.slP2.total}</span>
+                                    </div>
+                                    <div className="w-full bg-gray-200 rounded-full h-2 overflow-hidden">
+                                        <div className="h-full rounded-full transition-all duration-300" style={{
+                                            width: `${(progress.slP2.completed / progress.slP2.total) * 100}%`,
+                                            background: 'linear-gradient(90deg, #004587 0%, #0066cc 100%)'
+                                        }}></div>
+                                    </div>
+                                    <span className="text-[10px] text-gray-500 mt-1">{Math.round((progress.slP2.completed / progress.slP2.total) * 100)}% complete</span>
+                                </div>
+
+                                {/* HL P1A */}
+                                <div className="flex flex-col">
+                                    <div className="flex justify-between items-center mb-1">
+                                        <span className="text-xs font-semibold" style={{ color: '#e0a800' }}>HL P1A</span>
+                                        <span className="text-xs font-mono font-bold" style={{ color: '#e0a800' }}>{progress.hlP1a.completed}/{progress.hlP1a.total}</span>
+                                    </div>
+                                    <div className="w-full bg-gray-200 rounded-full h-2 overflow-hidden">
+                                        <div className="h-full rounded-full transition-all duration-300" style={{
+                                            width: `${(progress.hlP1a.completed / progress.hlP1a.total) * 100}%`,
+                                            background: 'linear-gradient(90deg, #fbba07 0%, #e0a800 100%)'
+                                        }}></div>
+                                    </div>
+                                    <span className="text-[10px] text-gray-500 mt-1">{Math.round((progress.hlP1a.completed / progress.hlP1a.total) * 100)}% complete</span>
+                                </div>
+
+                                {/* HL P2 */}
+                                <div className="flex flex-col">
+                                    <div className="flex justify-between items-center mb-1">
+                                        <span className="text-xs font-semibold" style={{ color: '#e0a800' }}>HL P2</span>
+                                        <span className="text-xs font-mono font-bold" style={{ color: '#e0a800' }}>{progress.hlP2.completed}/{progress.hlP2.total}</span>
+                                    </div>
+                                    <div className="w-full bg-gray-200 rounded-full h-2 overflow-hidden">
+                                        <div className="h-full rounded-full transition-all duration-300" style={{
+                                            width: `${(progress.hlP2.completed / progress.hlP2.total) * 100}%`,
+                                            background: 'linear-gradient(90deg, #fbba07 0%, #e0a800 100%)'
+                                        }}></div>
+                                    </div>
+                                    <span className="text-[10px] text-gray-500 mt-1">{Math.round((progress.hlP2.completed / progress.hlP2.total) * 100)}% complete</span>
                                 </div>
                             </div>
                         </div>

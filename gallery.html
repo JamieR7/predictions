@@ -117,22 +117,151 @@
 
     </div>
 
+    <!-- Config -->
+    <script src="config.js"></script>
+
     <script>
-        // Placeholder for future functionality
-        console.log('Gallery page loaded - Backend integration pending');
+        let allPredictions = [];
+        let filteredPredictions = [];
 
-        // Filter event listeners (for future use)
-        document.getElementById('topicFilter').addEventListener('change', function () {
-            console.log('Topic filter:', this.value);
-        });
+        // Load predictions from backend
+        async function loadPredictions() {
+            const comingSoon = document.querySelector('.text-center.py-20');
+            const grid = document.getElementById('predictionsGrid');
 
-        document.getElementById('levelFilter').addEventListener('change', function () {
-            console.log('Level filter:', this.value);
-        });
+            try {
+                const response = await fetch(`${CONFIG.API_URL}?action=get-public-predictions`);
+                const result = await response.json();
 
-        document.getElementById('searchInput').addEventListener('input', function () {
-            console.log('Search:', this.value);
-        });
+                if (result.success && result.predictions.length > 0) {
+                    allPredictions = result.predictions;
+                    filteredPredictions = allPredictions;
+
+                    // Hide "coming soon", show grid
+                    comingSoon.style.display = 'none';
+                    grid.style.display = 'grid';
+
+                    renderPredictions();
+                } else {
+                    // No predictions yet
+                    comingSoon.querySelector('h2').textContent = 'No Predictions Yet';
+                    comingSoon.querySelector('p').textContent = 'Be the first to submit your predictions!';
+                }
+            } catch (error) {
+                console.error('Error loading predictions:', error);
+                comingSoon.querySelector('h2').textContent = 'Error Loading Gallery';
+                comingSoon.querySelector('p').textContent = 'Please try again later.';
+            }
+        }
+
+        // Render prediction cards
+        function renderPredictions() {
+            const grid = document.getElementById('predictionsGrid');
+            grid.innerHTML = '';
+
+            filteredPredictions.forEach((pred, index) => {
+                const card = document.createElement('div');
+                card.className = 'prediction-card bg-white rounded-lg p-5 shadow-lg border border-gray-200';
+
+                // Truncate long questions
+                const questionPreview = pred.question.length > 150
+                    ? pred.question.substring(0, 150) + '...'
+                    : pred.question;
+
+                card.innerHTML = `
+                    <div class="flex justify-between items-start mb-3">
+                        <div class="flex items-center gap-2">
+                            <div class="w-10 h-10 rounded-full flex items-center justify-center font-bold text-white" style="background: ${getColorForUsername(pred.username)};">
+                                ${pred.username.charAt(0).toUpperCase()}
+                            </div>
+                            <div>
+                                <div class="font-bold" style="color: #004587;">${escapeHtml(pred.username)}</div>
+                                <div class="text-xs text-gray-500">${pred.unitCode} • ${pred.level.toUpperCase()} • ${pred.paper.toUpperCase()}</div>
+                            </div>
+                        </div>
+                        <span class="text-lg font-bold font-mono" style="color: #fbba07;">${pred.predictedPoints}pts</span>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <div class="text-xs uppercase text-gray-500 mb-1">Question</div>
+                        <div class="text-sm text-gray-700 leading-relaxed">${escapeHtml(questionPreview)}</div>
+                    </div>
+                    
+                    <div class="mb-3 mark-scheme-container-${index}" style="display: none;">
+                        <div class="text-xs uppercase text-gray-500 mb-1">Mark Scheme</div>
+                        <div class="text-sm text-gray-700 bg-gray-50 p-3 rounded border border-gray-200 leading-relaxed">${escapeHtml(pred.markScheme)}</div>
+                    </div>
+                    
+                    <button onclick="toggleMarkScheme(${index})" class="w-full py-2 px-4 rounded text-sm font-semibold transition mark-scheme-btn-${index}" style="background: #f8f9fa; color: #004587; border: 1px solid #e0e0e0;">
+                        🔍 Reveal Mark Scheme
+                    </button>
+                `;
+
+                grid.appendChild(card);
+            });
+        }
+
+        // Toggle mark scheme visibility
+        function toggleMarkScheme(index) {
+            const container = document.querySelector(`.mark-scheme-container-${index}`);
+            const btn = document.querySelector(`.mark-scheme-btn-${index}`);
+
+            if (container.style.display === 'none') {
+                container.style.display = 'block';
+                btn.textContent = '🔒 Hide Mark Scheme';
+                btn.style.background = 'linear-gradient(135deg, #fbba07 0%, #e0a800 100%)';
+                btn.style.color = 'white';
+                btn.style.border = 'none';
+            } else {
+                container.style.display = 'none';
+                btn.textContent = '🔍 Reveal Mark Scheme';
+                btn.style.background = '#f8f9fa';
+                btn.style.color = '#004587';
+                btn.style.border = '1px solid #e0e0e0';
+            }
+        }
+
+        // Filter predictions
+        function applyFilters() {
+            const topicFilter = document.getElementById('topicFilter').value;
+            const levelFilter = document.getElementById('levelFilter').value;
+            const searchQuery = document.getElementById('searchInput').value.toLowerCase();
+
+            filteredPredictions = allPredictions.filter(pred => {
+                const matchesTopic = !topicFilter || pred.unitCode.startsWith(topicFilter);
+                const matchesLevel = !levelFilter || pred.level.toUpperCase() === levelFilter;
+                const matchesSearch = !searchQuery || pred.username.toLowerCase().includes(searchQuery);
+
+                return matchesTopic && matchesLevel && matchesSearch;
+            });
+
+            renderPredictions();
+        }
+
+        // Helper: Generate consistent color for username
+        function getColorForUsername(username) {
+            const colors = ['#004587', '#fbba07', '#e0a800', '#003366', '#d4a017', '#0066cc'];
+            let hash = 0;
+            for (let i = 0; i < username.length; i++) {
+                hash = username.charCodeAt(i) + ((hash << 5) - hash);
+            }
+            return colors[Math.abs(hash) % colors.length];
+        }
+
+        // Helper: Escape HTML to prevent XSS
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        // Event listeners
+        document.getElementById('topicFilter').addEventListener('change', applyFilters);
+        document.getElementById('levelFilter').addEventListener('change', applyFilters);
+        document.getElementById('searchInput').addEventListener('input', applyFilters);
+
+        // Load on page load
+        loadPredictions();
     </script>
 
 </body>
