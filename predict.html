@@ -134,37 +134,40 @@
 
         // --- DATA ---
         const SEHS_DATA = [
-            { code: 'A.1.1', title: 'Inter-system communication', sl: 10, hl: 0 },
-            { code: 'A.1.1.2', title: 'Endocrine system (Reproductive)', sl: 1, hl: 0 },
-            { code: 'A.1.2', title: 'Maintaining homeostasis', sl: 6, hl: 0 },
-            { code: 'A.1.2.2', title: 'Body response to environment (AHL)', sl: 0, hl: 5 },
-            { code: 'A.1.3', title: 'Transport', sl: 7, hl: 0 },
-            { code: 'A.2.1', title: 'Water and electrolyte balance', sl: 3, hl: 0 },
-            { code: 'A.2.2', title: 'Fuelling for health/performance', sl: 6, hl: 4 },
-            { code: 'A.2.3', title: 'Energy systems', sl: 7, hl: 2 },
-            { code: 'A.3.1', title: 'Qualities of training', sl: 6, hl: 0 },
-            { code: 'A.3.2', title: 'Benefits to health of being active', sl: 2, hl: 2 },
-            { code: 'A.3.3', title: 'Fatigue and recovery (AHL)', sl: 0, hl: 9 },
-            { code: 'B.1.1', title: 'Anatomical position/planes', sl: 3, hl: 3 },
-            { code: 'B.1.2', title: 'Structure connective tissues', sl: 3, hl: 0 },
-            { code: 'B.1.3', title: 'Muscular function', sl: 4, hl: 2 },
-            { code: 'B.1.4', title: 'Levers in movement', sl: 2, hl: 0 },
-            { code: 'B.2.1', title: 'Newton’s laws of motion', sl: 5, hl: 12 },
-            { code: 'B.2.2', title: 'Fluid mechanics', sl: 3, hl: 8 },
-            { code: 'B.2.3', title: 'Movement analysis', sl: 3, hl: 0 },
-            { code: 'B.3', title: 'Injury', sl: 7, hl: 2 },
-            { code: 'C.1', title: 'Individual differences', sl: 4, hl: 6 },
-            { code: 'C.2.1', title: 'Motor learning processes', sl: 10, hl: 0 },
-            { code: 'C.2.2', title: 'Attentional control', sl: 2, hl: 0 },
-            { code: 'C.3', title: 'Motivation', sl: 8, hl: 8 },
-            { code: 'C.4.1', title: 'Arousal and anxiety', sl: 3, hl: 0 },
-            { code: 'C.4.2', title: 'Coping', sl: 2, hl: 2 },
-            { code: 'C.5', title: 'Psychological skills', sl: 4, hl: 5 },
+            // Theme A: Physiology & Nutrition
+            { code: 'A.1.1', title: 'Inter-system communication', marks: { sl: { p1a: 2, p2: 4 }, hl: { p1a: 2, p2: 4 } } },
+            { code: 'A.1.2', title: 'Maintaining homeostasis', marks: { sl: { p1a: 1, p2: 3 }, hl: { p1a: 1, p2: 3 } } },
+            { code: 'A.1.3', title: 'Transport', marks: { sl: { p1a: 2, p2: 3 }, hl: { p1a: 2, p2: 3 } } },
+            { code: 'A.2.1', title: 'Water and electrolyte balance', marks: { sl: { p1a: 1, p2: 1 }, hl: { p1a: 1, p2: 1 } } },
+            { code: 'A.2.2', title: 'Fuelling for health/performance', marks: { sl: { p1a: 1, p2: 3 }, hl: { p1a: 2, p2: 5 } } },
+            { code: 'A.2.3', title: 'Energy systems', marks: { sl: { p1a: 1, p2: 3 }, hl: { p1a: 2, p2: 4 } } },
+            { code: 'A.3.1', title: 'Qualities of training', marks: { sl: { p1a: 1, p2: 3 }, hl: { p1a: 1, p2: 3 } } },
+            { code: 'A.3.2', title: 'Health benefits of activity', marks: { sl: { p1a: 0, p2: 1 }, hl: { p1a: 0, p2: 2 } } },
+            { code: 'A.3.3', title: 'Fatigue and recovery (AHL)', marks: { sl: { p1a: 0, p2: 0 }, hl: { p1a: 2, p2: 4 } } },
+
+            // Theme B: Biomechanics
+            { code: 'B.1.1', title: 'Anatomical position & movement', marks: { sl: { p1a: 1, p2: 1 }, hl: { p1a: 2, p2: 2 } } },
+            { code: 'B.1.2', title: 'Connective tissues & joints', marks: { sl: { p1a: 1, p2: 1 }, hl: { p1a: 1, p2: 1 } } },
+            { code: 'B.1.3', title: 'Muscular function', marks: { sl: { p1a: 1, p2: 2 }, hl: { p1a: 1, p2: 3 } } },
+            { code: 'B.1.4', title: 'Levers in movement', marks: { sl: { p1a: 0, p2: 1 }, hl: { p1a: 0, p2: 1 } } },
+            { code: 'B.2.1', title: 'Newton’s laws of motion', marks: { sl: { p1a: 1, p2: 2 }, hl: { p1a: 4, p2: 7 } } },
+            { code: 'B.2.2', title: 'Fluid mechanics', marks: { sl: { p1a: 1, p2: 1 }, hl: { p1a: 3, p2: 5 } } },
+            { code: 'B.2.3', title: 'Movement analysis', marks: { sl: { p1a: 1, p2: 1 }, hl: { p1a: 1, p2: 1 } } },
+            { code: 'B.3', title: 'Injury (Causes & Prevention)', marks: { sl: { p1a: 1, p2: 3 }, hl: { p1a: 2, p2: 4 } } },
+
+            // Theme C: Sports Psychology
+            { code: 'C.1', title: 'Individual differences', marks: { sl: { p1a: 1, p2: 2 }, hl: { p1a: 2, p2: 5 } } },
+            { code: 'C.2.1', title: 'Motor learning processes', marks: { sl: { p1a: 1, p2: 4 }, hl: { p1a: 2, p2: 4 } } },
+            { code: 'C.2.2', title: 'Attentional control', marks: { sl: { p1a: 0, p2: 1 }, hl: { p1a: 0, p2: 1 } } },
+            { code: 'C.3', title: 'Motivation', marks: { sl: { p1a: 2, p2: 4 }, hl: { p1a: 4, p2: 8 } } },
+            { code: 'C.4.1', title: 'Arousal and anxiety', marks: { sl: { p1a: 1, p2: 1 }, hl: { p1a: 1, p2: 1 } } },
+            { code: 'C.4.2', title: 'Coping', marks: { sl: { p1a: 0, p2: 1 }, hl: { p1a: 0, p2: 2 } } },
+            { code: 'C.5', title: 'Psychological skills', marks: { sl: { p1a: 1, p2: 2 }, hl: { p1a: 2, p2: 4 } } }
         ];
 
         // --- COMPONENTS ---
 
-        const PaperBlock = ({ title, level, paper, data, onChange, themeColor }) => {
+        const PaperBlock = ({ title, level, paper, data, onChange, themeColor, maxPoints }) => {
             const getVal = (field) => data?.[level]?.[paper]?.[field] || '';
 
             const borderFocus = 'focus:border-[#fbba07] focus:shadow-[0_0_10px_rgba(251,186,7,0.2)]';
@@ -179,18 +182,26 @@
 
                     <div className="space-y-3">
                         <div>
-                            <label className="flex items-center gap-2 text-[10px] uppercase text-[#666] mb-1 font-semibold">
-                                <span className={`text-lg font-serif ${tildeColor} leading-none`}>~</span>
-                                Predicted Points
-                            </label>
+                            <div className="flex justify-between items-center mb-1">
+                                <label className="flex items-center gap-2 text-[10px] uppercase text-[#666] font-semibold">
+                                    <span className={`text-lg font-serif ${tildeColor} leading-none`}>~</span>
+                                    Predicted Points
+                                </label>
+                                <span className="text-[10px] font-mono text-gray-400">Max: {maxPoints}</span>
+                            </div>
                             <input
                                 type="number"
                                 min="0"
-                                max="100"
+                                max={maxPoints}
                                 className={`w-full bg-white border border-[#e0e0e0] rounded px-2 py-1.5 text-[#333] text-sm ${borderFocus} focus:outline-none transition-all duration-300 font-mono`}
-                                placeholder="0"
+                                placeholder={`0-${maxPoints}`}
                                 value={getVal('points')}
-                                onChange={(e) => onChange(level, paper, 'points', e.target.value)}
+                                onChange={(e) => {
+                                    let val = parseInt(e.target.value);
+                                    if (val > maxPoints) val = maxPoints;
+                                    if (val < 0) val = 0;
+                                    onChange(level, paper, 'points', val.toString())
+                                }}
                             />
                         </div>
 
@@ -236,22 +247,24 @@
                                 <div className="grid grid-cols-2 gap-2">
                                     {/* SL Section */}
                                     <div className="flex flex-col items-center px-2 py-1 bg-[#e6f3ff] rounded border border-[#004587]" style={{ borderWidth: '2px' }}>
-                                        <span className="text-[9px] text-[#004587] font-bold uppercase mb-0.5">Hours SL</span>
-                                        <span className="text-[#004587] font-bold font-mono text-sm">{Math.ceil(unit.sl * 0.5)}</span>
-                                    </div>
-                                    <div className="flex flex-col items-center px-2 py-1 bg-[#e6f3ff] rounded border border-[#004587]" style={{ borderWidth: '2px' }}>
-                                        <span className="text-[9px] text-[#004587] font-bold uppercase mb-0.5">Points SL</span>
-                                        <span className="text-[#004587] font-bold font-mono text-sm">{unit.sl}</span>
+                                        <span className="text-[9px] text-[#004587] font-bold uppercase mb-0.5">SL Marks</span>
+                                        <span className="text-[#004587] font-bold font-mono text-sm">
+                                            {unit.marks.sl.p1a + unit.marks.sl.p2}
+                                            <span className="text-[9px] font-normal ml-1 text-gray-500">
+                                                (P1:{unit.marks.sl.p1a}, P2:{unit.marks.sl.p2})
+                                            </span>
+                                        </span>
                                     </div>
 
                                     {/* HL Section */}
                                     <div className="flex flex-col items-center px-2 py-1 bg-[#fff9e6] rounded border border-[#fbba07]" style={{ borderWidth: '2px' }}>
-                                        <span className="text-[9px] font-bold uppercase mb-0.5" style={{ color: '#e0a800' }}>Hours HL</span>
-                                        <span className="font-bold font-mono text-sm" style={{ color: '#e0a800' }}>{Math.ceil(unit.hl * 0.5)}</span>
-                                    </div>
-                                    <div className="flex flex-col items-center px-2 py-1 bg-[#fff9e6] rounded border border-[#fbba07]" style={{ borderWidth: '2px' }}>
-                                        <span className="text-[9px] font-bold uppercase mb-0.5" style={{ color: '#e0a800' }}>Points HL</span>
-                                        <span className="font-bold font-mono text-sm" style={{ color: '#e0a800' }}>{unit.hl}</span>
+                                        <span className="text-[9px] font-bold uppercase mb-0.5" style={{ color: '#e0a800' }}>HL Marks</span>
+                                        <span className="font-bold font-mono text-sm" style={{ color: '#e0a800' }}>
+                                            {unit.marks.hl.p1a + unit.marks.hl.p2}
+                                            <span className="text-[9px] font-normal ml-1 text-gray-500">
+                                                (P1:{unit.marks.hl.p1a}, P2:{unit.marks.hl.p2})
+                                            </span>
+                                        </span>
                                     </div>
                                 </div>
                             </div>
@@ -456,25 +469,33 @@
             };
 
             const calculateProgress = () => {
-                const totalUnits = SEHS_DATA.length;
-                let slP1aCompleted = 0;
-                let slP2Completed = 0;
-                let hlP1aCompleted = 0;
-                let hlP2Completed = 0;
+                let slP1aTotal = 0, slP1aMax = 0;
+                let slP2Total = 0, slP2Max = 0;
+                let hlP1aTotal = 0, hlP1aMax = 0;
+                let hlP2Total = 0, hlP2Max = 0;
 
                 SEHS_DATA.forEach(unit => {
+                    // Max points
+                    slP1aMax += unit.marks.sl.p1a;
+                    slP2Max += unit.marks.sl.p2;
+                    hlP1aMax += unit.marks.hl.p1a;
+                    hlP2Max += unit.marks.hl.p2;
+
+                    // User points
                     const unitData = formData[unit.code];
-                    if (unitData?.sl?.p1a?.question || unitData?.sl?.p1a?.points) slP1aCompleted++;
-                    if (unitData?.sl?.p2?.question || unitData?.sl?.p2?.points) slP2Completed++;
-                    if (unitData?.hl?.p1a?.question || unitData?.hl?.p1a?.points) hlP1aCompleted++;
-                    if (unitData?.hl?.p2?.question || unitData?.hl?.p2?.points) hlP2Completed++;
+                    if (unitData) {
+                        if (unitData.sl?.p1a?.points) slP1aTotal += parseInt(unitData.sl.p1a.points) || 0;
+                        if (unitData.sl?.p2?.points) slP2Total += parseInt(unitData.sl.p2.points) || 0;
+                        if (unitData.hl?.p1a?.points) hlP1aTotal += parseInt(unitData.hl.p1a.points) || 0;
+                        if (unitData.hl?.p2?.points) hlP2Total += parseInt(unitData.hl.p2.points) || 0;
+                    }
                 });
 
                 return {
-                    slP1a: { completed: slP1aCompleted, total: totalUnits },
-                    slP2: { completed: slP2Completed, total: totalUnits },
-                    hlP1a: { completed: hlP1aCompleted, total: totalUnits },
-                    hlP2: { completed: hlP2Completed, total: totalUnits }
+                    slP1a: { current: slP1aTotal, max: slP1aMax },
+                    slP2: { current: slP2Total, max: slP2Max },
+                    hlP1a: { current: hlP1aTotal, max: hlP1aMax },
+                    hlP2: { current: hlP2Total, max: hlP2Max }
                 };
             };
 
