@@ -76,6 +76,12 @@ function doPost(e) {
     }
 }
 
+// Handle OPTIONS requests for CORS preflight
+function doOptions() {
+    return ContentService.createTextOutput('')
+        .setMimeType(ContentService.MimeType.TEXT);
+}
+
 // Helper function to create CORS-enabled responses
 function createCORSResponse(data) {
     const output = ContentService.createTextOutput(JSON.stringify(data));
