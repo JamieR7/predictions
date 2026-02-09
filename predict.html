@@ -197,7 +197,13 @@
                                 placeholder={`0-${maxPoints}`}
                                 value={getVal('points')}
                                 onChange={(e) => {
-                                    let val = parseInt(e.target.value);
+                                    const inputValue = e.target.value;
+                                    if (inputValue === '') {
+                                        onChange(level, paper, 'points', '');
+                                        return;
+                                    }
+                                    let val = parseInt(inputValue);
+                                    if (isNaN(val)) return; // Ignore invalid inputs
                                     if (val > maxPoints) val = maxPoints;
                                     if (val < 0) val = 0;
                                     onChange(level, paper, 'points', val.toString())
@@ -457,12 +463,12 @@
 
                 Object.values(formData).forEach(unit => {
                     if (unit.sl) {
-                        if (unit.sl.p1a?.points) slTotal += parseInt(unit.sl.p1a.points) || 0;
-                        if (unit.sl.p2?.points) slTotal += parseInt(unit.sl.p2.points) || 0;
+                        if (unit.sl.p1a?.points) slTotal += (parseInt(unit.sl.p1a.points) || 0);
+                        if (unit.sl.p2?.points) slTotal += (parseInt(unit.sl.p2.points) || 0);
                     }
                     if (unit.hl) {
-                        if (unit.hl.p1a?.points) hlTotal += parseInt(unit.hl.p1a.points) || 0;
-                        if (unit.hl.p2?.points) hlTotal += parseInt(unit.hl.p2.points) || 0;
+                        if (unit.hl.p1a?.points) hlTotal += (parseInt(unit.hl.p1a.points) || 0);
+                        if (unit.hl.p2?.points) hlTotal += (parseInt(unit.hl.p2.points) || 0);
                     }
                 });
                 return { slTotal, hlTotal };
@@ -481,13 +487,13 @@
                     hlP1aMax += unit.marks.hl.p1a;
                     hlP2Max += unit.marks.hl.p2;
 
-                    // User points
+                    // User points calculation needs to be safe
                     const unitData = formData[unit.code];
                     if (unitData) {
-                        if (unitData.sl?.p1a?.points) slP1aTotal += parseInt(unitData.sl.p1a.points) || 0;
-                        if (unitData.sl?.p2?.points) slP2Total += parseInt(unitData.sl.p2.points) || 0;
-                        if (unitData.hl?.p1a?.points) hlP1aTotal += parseInt(unitData.hl.p1a.points) || 0;
-                        if (unitData.hl?.p2?.points) hlP2Total += parseInt(unitData.hl.p2.points) || 0;
+                        if (unitData.sl?.p1a?.points) slP1aTotal += (parseInt(unitData.sl.p1a.points) || 0);
+                        if (unitData.sl?.p2?.points) slP2Total += (parseInt(unitData.sl.p2.points) || 0);
+                        if (unitData.hl?.p1a?.points) hlP1aTotal += (parseInt(unitData.hl.p1a.points) || 0);
+                        if (unitData.hl?.p2?.points) hlP2Total += (parseInt(unitData.hl.p2.points) || 0);
                     }
                 });
 
