@@ -226,14 +226,27 @@
                             </div>
                             <div className="font-medium text-[#333] flex-1">{unit.title}</div>
 
-                            <div className="flex gap-3 text-sm mr-4 items-center hidden sm:flex">
-                                <div className="flex flex-col items-center px-3 py-1 bg-[#f8f9fa] rounded border border-[#e0e0e0]">
-                                    <span className="text-[10px] text-[#666] uppercase">Hist. SL</span>
-                                    <span className="text-[#004587] font-bold font-mono">{unit.sl}</span>
-                                </div>
-                                <div className="flex flex-col items-center px-3 py-1 bg-[#f8f9fa] rounded border border-[#e0e0e0]">
-                                    <span className="text-[10px] text-[#666] uppercase">Hist. HL</span>
-                                    <span className="text-[#004587] font-bold font-mono">{unit.hl}</span>
+                            <div className="flex gap-2 text-xs mr-4 items-center hidden sm:flex">
+                                <div className="grid grid-cols-2 gap-2">
+                                    {/* SL Section */}
+                                    <div className="flex flex-col items-center px-2 py-1 bg-[#e6f3ff] rounded border border-[#004587]" style={{ borderWidth: '2px' }}>
+                                        <span className="text-[9px] text-[#004587] font-bold uppercase mb-0.5">Hours SL</span>
+                                        <span className="text-[#004587] font-bold font-mono text-sm">{Math.ceil(unit.sl * 0.5)}</span>
+                                    </div>
+                                    <div className="flex flex-col items-center px-2 py-1 bg-[#e6f3ff] rounded border border-[#004587]" style={{ borderWidth: '2px' }}>
+                                        <span className="text-[9px] text-[#004587] font-bold uppercase mb-0.5">Points SL</span>
+                                        <span className="text-[#004587] font-bold font-mono text-sm">{unit.sl}</span>
+                                    </div>
+
+                                    {/* HL Section */}
+                                    <div className="flex flex-col items-center px-2 py-1 bg-[#fff9e6] rounded border border-[#fbba07]" style={{ borderWidth: '2px' }}>
+                                        <span className="text-[9px] font-bold uppercase mb-0.5" style={{ color: '#e0a800' }}>Hours HL</span>
+                                        <span className="font-bold font-mono text-sm" style={{ color: '#e0a800' }}>{Math.ceil(unit.hl * 0.5)}</span>
+                                    </div>
+                                    <div className="flex flex-col items-center px-2 py-1 bg-[#fff9e6] rounded border border-[#fbba07]" style={{ borderWidth: '2px' }}>
+                                        <span className="text-[9px] font-bold uppercase mb-0.5" style={{ color: '#e0a800' }}>Points HL</span>
+                                        <span className="font-bold font-mono text-sm" style={{ color: '#e0a800' }}>{unit.hl}</span>
+                                    </div>
                                 </div>
                             </div>
                         </div>
