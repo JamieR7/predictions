@@ -55,8 +55,7 @@ function doGet(e) {
         return getMyPredictions(e.parameter.email);
     }
 
-    return ContentService.createTextOutput(JSON.stringify({ error: 'Invalid action' }))
-        .setMimeType(ContentService.MimeType.JSON);
+    return createCORSResponse({ error: 'Invalid action' });
 }
 
 function doPost(e) {
@@ -70,13 +69,20 @@ function doPost(e) {
             return updatePrediction(data);
         }
 
-        return ContentService.createTextOutput(JSON.stringify({ error: 'Invalid action' }))
-            .setMimeType(ContentService.MimeType.JSON);
+        return createCORSResponse({ error: 'Invalid action' });
 
     } catch (error) {
-        return ContentService.createTextOutput(JSON.stringify({ error: error.toString() }))
-            .setMimeType(ContentService.MimeType.JSON);
+        return createCORSResponse({ error: error.toString() });
     }
+}
+
+// Helper function to create CORS-enabled responses
+function createCORSResponse(data) {
+    return ContentService.createTextOutput(JSON.stringify(data))
+        .setMimeType(ContentService.MimeType.JSON)
+        .setHeader('Access-Control-Allow-Origin', '*')
+        .setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS')
+        .setHeader('Access-Control-Allow-Headers', 'Content-Type');
 }
 
 // Submit a new prediction
@@ -102,17 +108,16 @@ function submitPrediction(data) {
 
     sheet.appendRow(row);
 
-    return ContentService.createTextOutput(JSON.stringify({
+    return createCORSResponse({
         success: true,
         message: 'Prediction saved successfully'
-    })).setMimeType(ContentService.MimeType.JSON);
+    });
 }
 
 // Get user's own predictions (requires email)
 function getMyPredictions(email) {
     if (!email) {
-        return ContentService.createTextOutput(JSON.stringify({ error: 'Email required' }))
-            .setMimeType(ContentService.MimeType.JSON);
+        return createCORSResponse({ error: 'Email required' });
     }
 
     const sheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName('Sheet1');
@@ -133,10 +138,10 @@ function getMyPredictions(email) {
             status: row[9]
         }));
 
-    return ContentService.createTextOutput(JSON.stringify({
+    return createCORSResponse({
         success: true,
         predictions: userPredictions
-    })).setMimeType(ContentService.MimeType.JSON);
+    });
 }
 
 // Get all predictions for public viewing (emails hidden)
@@ -159,10 +164,10 @@ function getPublicPredictions() {
             markScheme: row[8]
         }));
 
-    return ContentService.createTextOutput(JSON.stringify({
+    return createCORSResponse({
         success: true,
         predictions: publicPredictions
-    })).setMimeType(ContentService.MimeType.JSON);
+    });
 }
 
 // Update existing prediction
@@ -183,10 +188,10 @@ function updatePrediction(data) {
             sheet.getRange(i + 1, 9).setValue(data.markScheme);
             sheet.getRange(i + 1, 10).setValue(data.status || 'draft');
 
-            return ContentService.createTextOutput(JSON.stringify({
+            return createCORSResponse({
                 success: true,
                 message: 'Prediction updated successfully'
-            })).setMimeType(ContentService.MimeType.JSON);
+            });
         }
     }
 
