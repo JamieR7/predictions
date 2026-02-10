@@ -752,15 +752,26 @@
                                 </button>
                             </div>
 
-                            {SEHS_DATA.map(unit => (
-                                <UnitRow
-                                    key={unit.code}
-                                    unit={unit}
-                                    data={formData[unit.code]}
-                                    onChange={handleUnitChange}
-                                    isExpanded={expandedRow === 'all' || expandedRow === unit.code}
-                                    onToggle={() => toggleRow(unit.code)}
-                                />
+                            {[
+                                { label: 'Theme A — Physiology & Nutrition', filter: u => u.code.startsWith('A') },
+                                { label: 'Theme B — Biomechanics', filter: u => u.code.startsWith('B') },
+                                { label: 'Theme C — Sports Psychology', filter: u => u.code.startsWith('C') }
+                            ].map((group, gi) => (
+                                <div key={group.label} className={gi > 0 ? 'mt-8' : ''}>
+                                    <div className="text-xs font-bold uppercase tracking-widest mb-3 px-1" style={{ color: 'rgba(255,255,255,0.7)' }}>
+                                        {group.label}
+                                    </div>
+                                    {SEHS_DATA.filter(group.filter).map(unit => (
+                                        <UnitRow
+                                            key={unit.code}
+                                            unit={unit}
+                                            data={formData[unit.code]}
+                                            onChange={handleUnitChange}
+                                            isExpanded={expandedRow === 'all' || expandedRow === unit.code}
+                                            onToggle={() => toggleRow(unit.code)}
+                                        />
+                                    ))}
+                                </div>
                             ))}
                         </div>
 
