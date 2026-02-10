@@ -71,14 +71,36 @@
                     </select>
                 </div>
 
-                <!-- Level Filter -->
+                <!-- Subtopic Filter -->
                 <div>
-                    <label class="block text-sm font-semibold mb-2" style="color: #666;">Level</label>
-                    <select id="levelFilter"
+                    <label class="block text-sm font-semibold mb-2" style="color: #666;">Subtopic</label>
+                    <select id="subtopicFilter"
                         class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-[#fbba07]">
-                        <option value="">All Levels</option>
-                        <option value="SL">Standard Level (SL)</option>
-                        <option value="HL">Higher Level (HL)</option>
+                        <option value="">All Subtopics</option>
+                        <option value="A.1.1">A.1.1 Inter-system communication</option>
+                        <option value="A.1.2">A.1.2 Maintaining homeostasis</option>
+                        <option value="A.1.3">A.1.3 Transport</option>
+                        <option value="A.2.1">A.2.1 Water and electrolyte balance</option>
+                        <option value="A.2.2">A.2.2 Fuelling for health/performance</option>
+                        <option value="A.2.3">A.2.3 Energy systems</option>
+                        <option value="A.3.1">A.3.1 Qualities of training</option>
+                        <option value="A.3.2">A.3.2 Health benefits of activity</option>
+                        <option value="A.3.3">A.3.3 Fatigue and recovery</option>
+                        <option value="B.1.1">B.1.1 Anatomical position and movement</option>
+                        <option value="B.1.2">B.1.2 Connective tissues and joints</option>
+                        <option value="B.1.3">B.1.3 Muscular function</option>
+                        <option value="B.1.4">B.1.4 Levers in movement</option>
+                        <option value="B.2.1">B.2.1 Newton's laws of motion</option>
+                        <option value="B.2.2">B.2.2 Fluid mechanics</option>
+                        <option value="B.2.3">B.2.3 Movement analysis</option>
+                        <option value="B.3">B.3 Injury causes and prevention</option>
+                        <option value="C.1">C.1 Individual differences</option>
+                        <option value="C.2.1">C.2.1 Motor learning processes</option>
+                        <option value="C.2.2">C.2.2 Attentional control</option>
+                        <option value="C.3">C.3 Motivation</option>
+                        <option value="C.4.1">C.4.1 Arousal and anxiety</option>
+                        <option value="C.4.2">C.4.2 Coping</option>
+                        <option value="C.5">C.5 Psychological skills</option>
                     </select>
                 </div>
 
@@ -218,15 +240,15 @@
         // Filter predictions
         function applyFilters() {
             const topicFilter = document.getElementById('topicFilter').value;
-            const levelFilter = document.getElementById('levelFilter').value;
+            const subtopicFilter = document.getElementById('subtopicFilter').value;
             const searchQuery = document.getElementById('searchInput').value.toLowerCase();
 
             filteredPredictions = allPredictions.filter(pred => {
                 const matchesTopic = !topicFilter || pred.unitCode.startsWith(topicFilter);
-                const matchesLevel = !levelFilter || pred.level.toUpperCase() === levelFilter;
+                const matchesSubtopic = !subtopicFilter || pred.unitCode === subtopicFilter;
                 const matchesSearch = !searchQuery || pred.username.toLowerCase().includes(searchQuery);
 
-                return matchesTopic && matchesLevel && matchesSearch;
+                return matchesTopic && matchesSubtopic && matchesSearch;
             });
 
             renderPredictions();
@@ -251,7 +273,7 @@
 
         // Event listeners
         document.getElementById('topicFilter').addEventListener('change', applyFilters);
-        document.getElementById('levelFilter').addEventListener('change', applyFilters);
+        document.getElementById('subtopicFilter').addEventListener('change', applyFilters);
         document.getElementById('searchInput').addEventListener('input', applyFilters);
 
         // Load on page load
