@@ -54,8 +54,8 @@ function doGet(e) {
     } else if (action === 'get-my-predictions') {
         return getMyPredictions(e.parameter.email);
     } else if (action === 'submit' || action === 'update') {
-        // Handle submissions via GET to avoid CORS
-        return submitPrediction(e.parameter);
+        // Handle submissions via GET to avoid CORS — always upsert
+        return updatePrediction(e.parameter);
     }
 
     return createCORSResponse({ error: 'Invalid action' });
@@ -160,7 +160,7 @@ function getPublicPredictions() {
     const rows = data.slice(1);
 
     const publicPredictions = rows
-        .filter(row => row[9] && row[6]) // Show all predictions with status and points
+        .filter(row => row[6] || row[7] || row[8]) // Show predictions with points, question, or mark scheme
         .map(row => ({
             timestamp: row[0],
             username: row[2],     // Username only, NO email
