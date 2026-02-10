@@ -183,13 +183,13 @@
                     </div>
                     
                     <div class="mb-3">
-                        <div class="text-xs uppercase text-gray-500 mb-1">Question</div>
-                        <div class="text-sm text-gray-700 leading-relaxed">${escapeHtml(questionPreview)}</div>
+                        <div class="text-xs uppercase text-gray-500 mb-1">Question(s)</div>
+                        <div class="text-sm text-gray-700 leading-relaxed" style="white-space: pre-line;">${escapeHtml(questionPreview)}</div>
                     </div>
                     
                     <div class="mb-3 mark-scheme-container-${index}" style="display: none;">
                         <div class="text-xs uppercase text-gray-500 mb-1">Mark Scheme</div>
-                        <div class="text-sm text-gray-700 bg-gray-50 p-3 rounded border border-gray-200 leading-relaxed">${escapeHtml(pred.markScheme)}</div>
+                        <div class="text-sm text-gray-700 bg-gray-50 p-3 rounded border border-gray-200 leading-relaxed" style="white-space: pre-line;">${escapeHtml(pred.markScheme)}</div>
                     </div>
                     
                     <button onclick="toggleMarkScheme(${index})" class="w-full py-2 px-4 rounded text-sm font-semibold transition mark-scheme-btn-${index}" style="background: #f8f9fa; color: #004587; border: 1px solid #e0e0e0;">

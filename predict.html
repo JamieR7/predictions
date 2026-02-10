@@ -187,12 +187,11 @@
                                     <span className={`text-lg font-serif ${tildeColor} leading-none`}>~</span>
                                     Predicted Points
                                 </label>
-                                <span className="text-[10px] font-mono text-gray-400">Max: {maxPoints}</span>
+                                <span className="text-[10px] font-mono text-gray-400">Suggested: {maxPoints}</span>
                             </div>
                             <input
                                 type="number"
                                 min="0"
-                                max={maxPoints}
                                 className={`w-full bg-white border border-[#e0e0e0] rounded px-2 py-1.5 text-[#333] text-sm ${borderFocus} focus:outline-none transition-all duration-300 font-mono`}
                                 placeholder={`0-${maxPoints}`}
                                 value={getVal('points')}
@@ -204,7 +203,6 @@
                                     }
                                     let val = parseInt(inputValue);
                                     if (isNaN(val)) return; // Ignore invalid inputs
-                                    if (val > maxPoints) val = maxPoints;
                                     if (val < 0) val = 0;
                                     onChange(level, paper, 'points', val.toString())
                                 }}
@@ -212,9 +210,9 @@
                         </div>
 
                         <div>
-                            <label className="block text-[10px] uppercase text-[#666] mb-1">Draft Question</label>
+                            <label className="block text-[10px] uppercase text-[#666] mb-1">Draft Question(s)</label>
                             <textarea
-                                className={`w-full bg-white border border-[#e0e0e0] rounded px-2 py-1.5 text-[#333] text-sm h-16 ${borderFocus} focus:outline-none transition-all duration-300 resize-none font-sans`}
+                                className={`w-full bg-white border border-[#e0e0e0] rounded px-2 py-1.5 text-[#333] text-sm h-24 ${borderFocus} focus:outline-none transition-all duration-300 resize-none font-sans`}
                                 placeholder="Type your question..."
                                 value={getVal('question')}
                                 onChange={(e) => onChange(level, paper, 'question', e.target.value)}
@@ -224,7 +222,7 @@
                         <div>
                             <label className="block text-[10px] uppercase text-[#666] mb-1">Mark Scheme</label>
                             <textarea
-                                className={`w-full bg-white border border-[#e0e0e0] rounded px-2 py-1.5 text-[#333] text-sm h-16 ${borderFocus} focus:outline-none transition-all duration-300 resize-none font-sans`}
+                                className={`w-full bg-white border border-[#e0e0e0] rounded px-2 py-1.5 text-[#333] text-sm h-24 ${borderFocus} focus:outline-none transition-all duration-300 resize-none font-sans`}
                                 placeholder="Key marking points..."
                                 value={getVal('markscheme')}
                                 onChange={(e) => onChange(level, paper, 'markscheme', e.target.value)}
