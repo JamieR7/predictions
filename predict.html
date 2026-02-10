@@ -236,17 +236,16 @@
         };
 
         const UnitRow = ({ unit, data, onChange, isExpanded, onToggle }) => {
-            // Calculate progress for this unit
-            const unitPredicted =
-                (parseInt(data?.sl?.p1a?.points) || 0) +
-                (parseInt(data?.sl?.p2?.points) || 0) +
-                (parseInt(data?.hl?.p1a?.points) || 0) +
-                (parseInt(data?.hl?.p2?.points) || 0);
-            const unitMax =
-                unit.marks.sl.p1a + unit.marks.sl.p2 +
-                unit.marks.hl.p1a + unit.marks.hl.p2;
-            const unitPct = unitMax > 0 ? Math.round((unitPredicted / unitMax) * 100) : 0;
-            const hasAnyInput = unitPredicted > 0;
+            // Calculate progress for this unit (separate SL and HL)
+            const slPredicted = (parseInt(data?.sl?.p1a?.points) || 0) + (parseInt(data?.sl?.p2?.points) || 0);
+            const slMax = unit.marks.sl.p1a + unit.marks.sl.p2;
+            const slPct = slMax > 0 ? Math.round((slPredicted / slMax) * 100) : 0;
+
+            const hlPredicted = (parseInt(data?.hl?.p1a?.points) || 0) + (parseInt(data?.hl?.p2?.points) || 0);
+            const hlMax = unit.marks.hl.p1a + unit.marks.hl.p2;
+            const hlPct = hlMax > 0 ? Math.round((hlPredicted / hlMax) * 100) : 0;
+
+            const hasAnyInput = slPredicted > 0 || hlPredicted > 0;
 
             return (
                 <div className={`mb-4 border rounded-lg overflow-hidden transition-all duration-300 ${isExpanded ? 'border-[#fbba07] bg-white shadow-lg' : 'border-[#e0e0e0] bg-white hover:border-[#fbba07]'}`}>
@@ -261,19 +260,35 @@
                             </div>
                             <div className="flex-1">
                                 <div className="font-medium text-[#333]">{unit.title}</div>
-                                {/* Section Progress Bar */}
+                                {/* SL Progress Bar */}
                                 <div className="flex items-center gap-2 mt-1.5">
-                                    <div className="flex-1 bg-gray-200 rounded-full h-1.5 overflow-hidden max-w-[200px]">
+                                    <span className="text-[9px] font-bold text-[#004587] w-5">SL</span>
+                                    <div className="flex-1 bg-gray-200 rounded-full h-1.5 overflow-hidden max-w-[160px]">
                                         <div className="h-full rounded-full transition-all duration-500 ease-out" style={{
-                                            width: `${unitPct}%`,
-                                            background: unitPct === 100
+                                            width: `${slPct}%`,
+                                            background: slPct === 100
                                                 ? 'linear-gradient(90deg, #22c55e 0%, #16a34a 100%)'
-                                                : unitPct > 0
+                                                : slPct > 0
+                                                    ? 'linear-gradient(90deg, #004587 0%, #0066cc 100%)'
+                                                    : 'transparent'
+                                        }}></div>
+                                    </div>
+                                    <span className="text-[10px] font-mono text-gray-400 whitespace-nowrap">{slPredicted}/{slMax}</span>
+                                </div>
+                                {/* HL Progress Bar */}
+                                <div className="flex items-center gap-2 mt-0.5">
+                                    <span className="text-[9px] font-bold w-5" style={{ color: '#e0a800' }}>HL</span>
+                                    <div className="flex-1 bg-gray-200 rounded-full h-1.5 overflow-hidden max-w-[160px]">
+                                        <div className="h-full rounded-full transition-all duration-500 ease-out" style={{
+                                            width: `${hlPct}%`,
+                                            background: hlPct === 100
+                                                ? 'linear-gradient(90deg, #22c55e 0%, #16a34a 100%)'
+                                                : hlPct > 0
                                                     ? 'linear-gradient(90deg, #fbba07 0%, #ffcc33 100%)'
                                                     : 'transparent'
                                         }}></div>
                                     </div>
-                                    <span className="text-[10px] font-mono text-gray-400 whitespace-nowrap">{unitPredicted}/{unitMax}</span>
+                                    <span className="text-[10px] font-mono text-gray-400 whitespace-nowrap">{hlPredicted}/{hlMax}</span>
                                 </div>
                             </div>
 
