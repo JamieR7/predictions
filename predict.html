@@ -236,6 +236,18 @@
         };
 
         const UnitRow = ({ unit, data, onChange, isExpanded, onToggle }) => {
+            // Calculate progress for this unit
+            const unitPredicted =
+                (parseInt(data?.sl?.p1a?.points) || 0) +
+                (parseInt(data?.sl?.p2?.points) || 0) +
+                (parseInt(data?.hl?.p1a?.points) || 0) +
+                (parseInt(data?.hl?.p2?.points) || 0);
+            const unitMax =
+                unit.marks.sl.p1a + unit.marks.sl.p2 +
+                unit.marks.hl.p1a + unit.marks.hl.p2;
+            const unitPct = unitMax > 0 ? Math.round((unitPredicted / unitMax) * 100) : 0;
+            const hasAnyInput = unitPredicted > 0;
+
             return (
                 <div className={`mb-4 border rounded-lg overflow-hidden transition-all duration-300 ${isExpanded ? 'border-[#fbba07] bg-white shadow-lg' : 'border-[#e0e0e0] bg-white hover:border-[#fbba07]'}`}>
                     <div
@@ -244,10 +256,26 @@
                     >
                         <div className="flex items-center gap-4 flex-1">
                             <div className="flex items-center gap-2">
-                                <div className={`w-2 h-2 rounded-full ${isExpanded ? 'bg-[#fbba07] animate-pulse' : 'bg-[#e0e0e0]'}`}></div>
+                                <div className={`w-2 h-2 rounded-full ${hasAnyInput ? 'bg-[#22c55e]' : isExpanded ? 'bg-[#fbba07] animate-pulse' : 'bg-[#e0e0e0]'}`}></div>
                                 <div className="w-16 font-mono font-bold text-[#004587]">{unit.code}</div>
                             </div>
-                            <div className="font-medium text-[#333] flex-1">{unit.title}</div>
+                            <div className="flex-1">
+                                <div className="font-medium text-[#333]">{unit.title}</div>
+                                {/* Section Progress Bar */}
+                                <div className="flex items-center gap-2 mt-1.5">
+                                    <div className="flex-1 bg-gray-200 rounded-full h-1.5 overflow-hidden max-w-[200px]">
+                                        <div className="h-full rounded-full transition-all duration-500 ease-out" style={{
+                                            width: `${unitPct}%`,
+                                            background: unitPct === 100
+                                                ? 'linear-gradient(90deg, #22c55e 0%, #16a34a 100%)'
+                                                : unitPct > 0
+                                                    ? 'linear-gradient(90deg, #fbba07 0%, #ffcc33 100%)'
+                                                    : 'transparent'
+                                        }}></div>
+                                    </div>
+                                    <span className="text-[10px] font-mono text-gray-400 whitespace-nowrap">{unitPredicted}/{unitMax}</span>
+                                </div>
+                            </div>
 
                             <div className="flex gap-2 text-xs mr-4 items-center hidden sm:flex">
                                 <div className="grid grid-cols-2 gap-2">
@@ -292,8 +320,8 @@
                                     </h3>
                                 </div>
 
-                                <PaperBlock title="Paper 1A" level="sl" paper="p1a" data={data} onChange={(l, p, f, v) => onChange(unit.code, l, p, f, v)} themeColor="blue" />
-                                <PaperBlock title="Paper 2" level="sl" paper="p2" data={data} onChange={(l, p, f, v) => onChange(unit.code, l, p, f, v)} themeColor="blue" />
+                                <PaperBlock title="Paper 1A" level="sl" paper="p1a" data={data} onChange={(l, p, f, v) => onChange(unit.code, l, p, f, v)} themeColor="blue" maxPoints={unit.marks.sl.p1a} />
+                                <PaperBlock title="Paper 2" level="sl" paper="p2" data={data} onChange={(l, p, f, v) => onChange(unit.code, l, p, f, v)} themeColor="blue" maxPoints={unit.marks.sl.p2} />
                             </div>
 
                             {/* HL Column */}
@@ -305,8 +333,8 @@
                                     </h3>
                                 </div>
 
-                                <PaperBlock title="Paper 1A" level="hl" paper="p1a" data={data} onChange={(l, p, f, v) => onChange(unit.code, l, p, f, v)} themeColor="gold" />
-                                <PaperBlock title="Paper 2" level="hl" paper="p2" data={data} onChange={(l, p, f, v) => onChange(unit.code, l, p, f, v)} themeColor="gold" />
+                                <PaperBlock title="Paper 1A" level="hl" paper="p1a" data={data} onChange={(l, p, f, v) => onChange(unit.code, l, p, f, v)} themeColor="gold" maxPoints={unit.marks.hl.p1a} />
+                                <PaperBlock title="Paper 2" level="hl" paper="p2" data={data} onChange={(l, p, f, v) => onChange(unit.code, l, p, f, v)} themeColor="gold" maxPoints={unit.marks.hl.p2} />
                             </div>
                         </div>
                     )}
